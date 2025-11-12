@@ -1,9 +1,9 @@
-<h1>Part-0 Exercises</h1>
+# Part 0 — Exercises
 
-<h2>Exercise: 0.4: New note diagram</h2>
+## Exercise 0.4 — New Note Diagram
 ```mermaid
-sequenceDiagram 
-    participant browser 
+sequenceDiagram
+    participant browser
     participant server
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
@@ -20,7 +20,7 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
-    server-->>browser: the css file
+    server-->>browser: the CSS file
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
@@ -28,21 +28,22 @@ sequenceDiagram
     server-->>browser: the JavaScript file
     deactivate server
 
-    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+    Note right of browser: JS code fetches JSON and re-renders the notes
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ...]
     deactivate server
 
-    Note right of browser: The browser executes the callback function that re-renders the notes 
+    Note right of browser: Callback function re-renders the notes in the page
 ```
 
-<h2>Exercise: 0.5: Single page app diagram</h2>
+## Exercise 0.5 — Single Page App Diagram
 ```mermaid
-sequenceDiagram 
-    participant browser 
+sequenceDiagram
+    participant browser
     participant server
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate server
     server-->>browser: HTML document
@@ -50,7 +51,7 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
-    server-->>browser: the css file
+    server-->>browser: the CSS file
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
@@ -58,24 +59,26 @@ sequenceDiagram
     server-->>browser: the JavaScript file
     deactivate server
 
-    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+    Note right of browser: JS runs and fetches JSON data to render notes
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ...]
     deactivate server
 
-    Note right of browser: The browser executes the callback function that renders notes into the DOM 
+    Note right of browser: The browser renders notes into the DOM
+```
 
-<h2>Exercise: 0.6: New note in Single page app diagram</h2>
+## Exercise 0.6 — New Note in SPA
 ```mermaid
-sequenceDiagram 
-    participant browser 
+sequenceDiagram
+    participant browser
     participant server
+
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
     activate server
     server-->>browser: 201 Created {message: "note created"}
     deactivate server
 
-    Note right of browser: The browser updates the DOM to show the new note without reload the page
+    Note right of browser: The browser updates the DOM without reloading the page
 ```
