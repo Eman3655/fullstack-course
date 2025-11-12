@@ -1,6 +1,6 @@
-#Part-0 Exercises
+<h1>Part-0 Exercises</h1>
 
-##Exercise: 0.4: New note diagram
+<h2>Exercise: 0.4: New note diagram</h2>
 ```mermaid
 sequenceDiagram 
     participant browser 
@@ -35,11 +35,10 @@ sequenceDiagram
     server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
     deactivate server
 
-    Note right of browser: The browser executes the callback function that re-renders the notes
-    New Note Diagram
+    Note right of browser: The browser executes the callback function that re-renders the notes 
 ```
 
-##Exercise: 0.5: Single page app diagram
+<h2>Exercise: 0.5: Single page app diagram</h2>
 ```mermaid
 sequenceDiagram 
     participant browser 
@@ -67,10 +66,8 @@ sequenceDiagram
     deactivate server
 
     Note right of browser: The browser executes the callback function that renders notes into the DOM 
-    New Note Diagram
-```
 
-##Exercise: 0.6: New note in Single page app diagram
+<h2>Exercise: 0.6: New note in Single page app diagram</h2>
 ```mermaid
 sequenceDiagram 
     participant browser 
