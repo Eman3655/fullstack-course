@@ -12,7 +12,7 @@ const Content = (props) => (
   </div>
 )
 
-const Total = (props) => <p>Number of exercises {props.total}</p>
+const Total = (props) => <h3>total of {props.total} exercises</h3>
 
 const Course = (props) => {
   return (
@@ -43,6 +43,11 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
