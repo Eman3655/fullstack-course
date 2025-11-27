@@ -19,18 +19,24 @@ const App = () => {
       })
   }, [])
 
-    const addPerson = (event) => {
+    const addPerson = async (event) => {
     event.preventDefault()
     if (persons.find(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`)
       return
     }
-    console.log('button clicked', event.target)
-    setPersons(persons.concat({ name: newName, number: newNumber }))
-    setNewName('')
-    setNewNumber('')
-
+  try {
+    const { data: created } = await axios.post(
+      "http://localhost:3001/persons",
+     { name: newName, number: newNumber}
+    );
+    setPersons(persons.concat(created));
+    setNewName('');
+    setNewNumber('');
+  } catch (error) {
+    console.error("Error adding person:", error);
   }
+};
 
     const personsToShow = persons.filter((p) =>
     p.name.toLowerCase().includes(filter.toLowerCase())
@@ -59,5 +65,4 @@ const App = () => {
     </div>
   )
 }
-
 export default App
