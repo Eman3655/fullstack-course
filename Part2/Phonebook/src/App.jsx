@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import AddPerson from './components/AddPerson'
-import FilterPersons from './components/FilterPersons'
-import PersonsList  from './components/PersonsList'
+import { useState , useEffect} from 'react'
+import PersonForm from './components/PersonForm'
+import PersonsFilter from './components/PersonsFilter'
+import Persons from './components/Persons'
+import axios from 'axios'
+
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }])
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        setPersons(response.data)
+      })
+  }, [])
 
     const addPerson = (event) => {
     event.preventDefault()
@@ -34,13 +40,13 @@ const App = () => {
         <div>
       <h2>Phonebook</h2>
 
-      <FilterPersons
+      <PersonsFilter
         filter={filter}
         onFilterChange={(e) => setFilter(e.target.value)}
       />
 
       <h3>Add a new</h3>
-      <AddPerson
+      <PersonForm
         onSubmit={addPerson}
         newName={newName}
         onNameChange={(e) => setNewName(e.target.value)}
@@ -49,7 +55,7 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-      <PersonsList persons={personsToShow} />
+      <Persons persons={personsToShow} />
     </div>
   )
 }

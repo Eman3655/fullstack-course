@@ -1,4 +1,4 @@
-const FilterPersons = ({ filter, onFilterChange }) => {
+const PersonsFilter = ({ filter, onFilterChange }) => {
   return (
     <div>
       filter shown with <input value={filter} onChange={onFilterChange} />
@@ -6,5 +6,5 @@ const FilterPersons = ({ filter, onFilterChange }) => {
   );
 };
 
-export default FilterPersons;
+export default PersonsFilter;
 

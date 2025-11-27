@@ -1,4 +1,4 @@
-const PersonsList = ({ persons }) => {
+const Persons = ({ persons }) => {
   return (
     <>
       {persons.map((p) => (
@@ -10,4 +10,4 @@ const PersonsList = ({ persons }) => {
   );
 };
 
-export default PersonsList;
+export default Persons;

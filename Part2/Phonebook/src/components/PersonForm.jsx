@@ -1,4 +1,4 @@
-const AddPerson = ({ onSubmit, newName, onNameChange, newNumber, onNumberChange }) => {
+const PersonForm = ({ onSubmit, newName, onNameChange, newNumber, onNumberChange }) => {
   return (
     <form onSubmit={onSubmit}>
       <div>
@@ -14,6 +14,6 @@ const AddPerson = ({ onSubmit, newName, onNameChange, newNumber, onNumberChange 
   );
 };
 
-export default AddPerson;
+export default PersonForm;
 
 
