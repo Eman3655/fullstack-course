@@ -19,24 +19,43 @@ useEffect(() => {
     })
 }, [])
 
-    const addPerson = async (event) => {
-    event.preventDefault()
-    if (persons.find(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
-      return
-    }
-    const newPerson = { name: newName, number: newNumber}
+const addPerson = async (event) => {
+  event.preventDefault()
+
+  const existingPerson = persons.find(person => person.name === newName)
+  if (existingPerson) {
+    const ok = window.confirm(
+      `${newName} is already added to phonebook, replace the old number with a new one?`
+    )
+    if (!ok) return
+
+    const changedPerson = { ...existingPerson, number: newNumber }
 
     personsService
-      .create(newPerson)
-      .then(created => {
-        setPersons(persons.concat(created))
+      .update(existingPerson.id, changedPerson)
+      .then(returnedPerson => {
+        setPersons(
+          persons.map(p => p.id === existingPerson.id ? returnedPerson : p)
+        )
         setNewName('')
         setNewNumber('')
-      }).catch (error=> {
-    console.error("Error adding person:", error);
-  })
-};
+      })
+    return
+  }
+  const newPerson = { name: newName, number: newNumber }
+
+  personsService
+    .create(newPerson)
+    .then(created => {
+      setPersons(persons.concat(created))
+      setNewName('')
+      setNewNumber('')
+    })
+    .catch(error => {
+      console.error("Error adding person:", error)
+    })
+}
+
 
     const personsToShow = persons.filter((p) =>
     p.name.toLowerCase().includes(filter.toLowerCase())
