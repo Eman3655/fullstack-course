@@ -42,6 +42,18 @@ useEffect(() => {
     p.name.toLowerCase().includes(filter.toLowerCase())
   );
 
+  const handleDeletePerson = (id, name) => {
+  const deleteConfirm = window.confirm(`Delete ${name} ?`)
+  if (!deleteConfirm) return
+
+  personsService
+    .remove(id)
+    .then(() => {
+      setPersons(persons.filter(p => p.id !== id))
+    })
+}
+
+
   return (
         <div>
       <h2>Phonebook</h2>
@@ -61,7 +73,7 @@ useEffect(() => {
       />
 
       <h3>Numbers</h3>
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} onDelete={handleDeletePerson} />
     </div>
   )
 }
