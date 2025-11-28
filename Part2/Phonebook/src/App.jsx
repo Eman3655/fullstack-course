@@ -2,7 +2,7 @@ import { useState , useEffect} from 'react'
 import PersonForm from './components/PersonForm'
 import PersonsFilter from './components/PersonsFilter'
 import Persons from './components/Persons'
-import axios from 'axios'
+import personsService from './components/personServ'
 
 
 const App = () => {
@@ -11,13 +11,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
-      })
-  }, [])
+useEffect(() => {
+  personsService
+    .getAll()
+    .then(initialPersons => {
+      setPersons(initialPersons)
+    })
+}, [])
 
     const addPerson = async (event) => {
     event.preventDefault()
@@ -25,17 +25,17 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
       return
     }
-  try {
-    const { data: created } = await axios.post(
-      "http://localhost:3001/persons",
-     { name: newName, number: newNumber}
-    );
-    setPersons(persons.concat(created));
-    setNewName('');
-    setNewNumber('');
-  } catch (error) {
+    const newPerson = { name: newName, number: newNumber}
+
+    personsService
+      .create(newPerson)
+      .then(created => {
+        setPersons(persons.concat(created))
+        setNewName('')
+        setNewNumber('')
+      }).catch (error=> {
     console.error("Error adding person:", error);
-  }
+  })
 };
 
     const personsToShow = persons.filter((p) =>
