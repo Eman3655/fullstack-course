@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json()) 
+
 const rawPersons = [
   { id: '1', name: 'Arto Hellas', number: '040-123456' },
   { id: '2', name: 'Ada Lovelace', number: '39-44-5323523' },
@@ -42,10 +44,21 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204).end()
 })
 
+app.post('/api/persons', (req, res) => {
+  const { name, number } = req.body
+
+  const id = Math.floor(Math.random() * 1000000)
+  const newPerson = { id, name, number }
+
+  persons.set(id.toString(), newPerson)
+  res.status(201).json(newPerson)
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
+
 
 
 
