@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./person')
 
 const app = express()
 app.use(express.json()) 
@@ -21,7 +23,9 @@ const rawPersons = [
 const persons = new Map(rawPersons.map(p => [p.id, p]))
 
 app.get('/api/persons', (req, res) => {
-  res.json(Array.from(persons.values()))
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
 app.get('/info', (req, res) => {
